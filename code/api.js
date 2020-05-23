@@ -38,4 +38,45 @@ function memoize (f) {
         cache[key] = cache[key] !== undefined ? cache[key] : f.apply(f, arguments)
         return cache[key]
     }
+};
+
+// 函数柯里化
+
+function getSum (a, b, c) {
+    return a + b + c
 }
+
+function carry (fn) {
+    return function carriedFn (...args) {
+        // 判断实参和形参的个数
+        if (arguments.length < fn.length) {
+            return function () {
+                return carriedFn(...args.concat([...arguments]))
+            }
+        }
+        return fn(...args)
+    }
+};
+
+const carried = carry(getSum)
+
+// console.log(carried(1)(2)(3))
+// console.log(carried(1, 2, 3))
+// console.log(carried(1, 2)(3))
+
+// 函数组合
+
+const reverse = arr => arr.reverse()
+const first = arr => arr[0]
+const toUpper = s => s.toUpperCase()
+
+function compose (...args) {
+    return function (value) {
+        return args.reverse().reduce(function (val, next) {
+            return next(val)
+        }, value)
+    }
+}
+
+const arrowCompose = (...args) => value => args.reverse().reduce((val, next) => next(val), value)
+
