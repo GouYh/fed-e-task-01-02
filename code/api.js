@@ -80,3 +80,78 @@ function compose (...args) {
 
 const arrowCompose = (...args) => value => args.reverse().reduce((val, next) => next(val), value)
 
+// 函子
+class Container {
+    static of (value) {
+        return new Container(value)
+    }
+
+    constructor (value) {
+        this._value = value
+    }
+    
+    map (fn) {
+        return Container.of(fn(this._value))
+    }
+}
+
+// MayBe函子
+class MayBe {
+    static of (value) {
+        return new MayBe(value)
+    }
+
+    constructor (value) {
+        this._value = value
+    }
+    
+    map (fn) {
+        return this.isNothing() ? MayBe.of(null) : MayBe.of(fn(this._value))
+    }
+
+    isNothing () {
+        return this._value === null || this._value === undefined
+    }
+}
+
+// Either函子
+
+class Left {
+    static of (value) {
+        return new Left(value)
+    }
+
+    constructor (value) {
+        this._value = value
+    }
+    
+    map (fn) {
+        return this
+    }
+}
+
+class Right {
+    static of (value) {
+        return new Right(value)
+    }
+
+    constructor (value) {
+        this._value = value
+    }
+    
+    map (fn) {
+        return Right.of(fm(this._value))
+    }
+}
+
+function parseJSON (str) {
+    try {
+        return Right.of(JSON.parse(str))
+    } catch (e) {
+        return Left.of({err: e.message})
+    }
+}
+
+let r1 = Right.of(12).map(x => x + 2) // Right {_value: 14}
+let r2 = Left.of(12).map(x => x + 2) // Left {_value: 12}
+
