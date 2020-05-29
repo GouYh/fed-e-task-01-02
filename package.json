@@ -1,0 +1,22 @@
+{
+  "name": "fed-e-task-01-02",
+  "version": "1.0.0",
+  "description": "1.描述引用计数的工作原理和优缺点。\r 答：引用计数的工作原理：引用计数是通过设置引用计数，当引用关系改变时修改引用数，当引用数为0时，判断为垃圾进行回收。\r     优点：发现垃圾时立即回收；能最大限度的减少程序暂停。\r     缺点：无法回收循环引用的对象；资源消耗较大，时间开销比较大。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GouYh/fed-e-task-01-02.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GouYh/fed-e-task-01-02/issues"
+  },
+  "homepage": "https://github.com/GouYh/fed-e-task-01-02#readme",
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}

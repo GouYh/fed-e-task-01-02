@@ -140,7 +140,7 @@ class Right {
     }
     
     map (fn) {
-        return Right.of(fm(this._value))
+        return Right.of(fn(this._value))
     }
 }
 
